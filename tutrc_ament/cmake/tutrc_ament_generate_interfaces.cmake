@@ -1,12 +1,16 @@
 macro(tutrc_ament_generate_interfaces)
-  file(
-    GLOB
-    idl_sources
-    RELATIVE
-    "${CMAKE_CURRENT_SOURCE_DIR}"
-    "msg/*.msg"
-    "srv/*.srv"
-  )
+  if(ARGN)
+    set(idl_sources ${ARGN})
+  else()
+    file(
+      GLOB
+      idl_sources
+      RELATIVE
+      "${CMAKE_CURRENT_SOURCE_DIR}"
+      "msg/*.msg"
+      "srv/*.srv"
+    )
+  endif()
 
   rosidl_generate_interfaces("${PROJECT_NAME}"
     ${idl_sources}
